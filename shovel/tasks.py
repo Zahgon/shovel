@@ -118,13 +118,7 @@ class Shovel(object):
 
     def keys(self):
         '''Return all valid keys'''
-        keys = []
-        for key, value in self.map.items():
-            if isinstance(value, Shovel):
-                keys.extend([key + '.' + k for k in value.keys()])
-            else:
-                keys.append(key)
-        return sorted(keys)
+        pass
 
     def items(self):
         '''Return a list of tuples of all the keys and tasks'''
@@ -249,28 +243,7 @@ class Task(object):
         '''Run a task and return a dictionary with stderr, stdout and the
         return value. Also, the traceback from the exception if there was
         one'''
-        import traceback
-        try:
-            from StringIO import StringIO
-        except ImportError:
-            from io import StringIO
-        stdout, stderr = sys.stdout, sys.stderr
-        sys.stdout = out = StringIO()
-        sys.stderr = err = StringIO()
-        result = {
-            'exception': None,
-            'stderr': None,
-            'stdout': None,
-            'return': None
-        }
-        try:
-            result['return'] = self.__call__(*args, **kwargs)
-        except Exception:
-            result['exception'] = traceback.format_exc()
-        sys.stdout, sys.stderr = stdout, stderr
-        result['stderr'] = err.getvalue()
-        result['stdout'] = out.getvalue()
-        return result
+        pass
 
     def dry(self, *args, **kwargs):
         '''Perform a dry-run of the task'''
